@@ -86,7 +86,7 @@ char			**ft_strsplit(char const *s, char c)
 	char		buf[2];
 
 	buf[0] = c;
-	buf[2] = '\0';
+	buf[1] = '\0';
 	if (!s)
 		return (NULL);
 	return (ft_split(s, buf));
