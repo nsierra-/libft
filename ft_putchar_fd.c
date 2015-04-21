@@ -6,7 +6,7 @@
 /*   By: nsierra- <nsierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 23:29:31 by nsierra-          #+#    #+#             */
-/*   Updated: 2013/11/26 01:26:53 by nsierra-         ###   ########.fr       */
+/*   Updated: 2015/04/21 05:58:09 by nsierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,5 @@
 
 void	ft_putchar_fd(char c, int fd)
 {
-	ft_putstr("putchar_fd  ");
 	write(fd, &c, 1);
 }

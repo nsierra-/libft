@@ -41,7 +41,7 @@ char		*ft_itoa(int n)
 		return (ft_strdup("-2147483648"));
 	sign = n < 0 ? 1 : 0;
 	i = 0;
-	result = malloc(sizeof(char *) * 12);
+	result = ft_strnew(12);
 	if (n == 0)
 		result[i++] = '0';
 	else if (n < 0)

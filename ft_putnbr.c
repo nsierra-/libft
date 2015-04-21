@@ -6,13 +6,17 @@
 /*   By: nsierra- <nsierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 23:28:16 by nsierra-          #+#    #+#             */
-/*   Updated: 2013/11/26 02:38:27 by nsierra-         ###   ########.fr       */
+/*   Updated: 2015/04/12 10:18:52 by nsierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
-void	ft_putnbr(int n)
+void		ft_putnbr(int n)
 {
-	ft_putstr(ft_itoa(n));
+	char	*str;
+	str = ft_itoa(n);
+	ft_putstr(str);
+	free(str);
 }
