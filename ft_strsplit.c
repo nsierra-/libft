@@ -66,7 +66,7 @@ char			**ft_split(const char *str, const char *to_avoid)
 	tmp = ft_strdup(str);
 	word_count = clean_string_get_word_count(tmp, to_avoid);
 	if (!(ret = NULL)
-			&& !(ret = malloc(sizeof(char *) * word_count + 1)))
+			&& !(ret = malloc(sizeof(char *) * (word_count + 1))))
 		return (NULL);
 	ret[word_count] = NULL;
 	while (i < word_count)
