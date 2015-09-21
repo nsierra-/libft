@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include "libft.h"
 
-void		die(const char *msg)
+void		die(const char *msg, int exit_code)
 {
 	write(STDERR_FILENO, msg, ft_strlen(msg));
-	exit(EXIT_FAILURE);
+	exit(exit_code);
 }
