@@ -6,12 +6,13 @@
 /*   By: nsierra- <nsierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 21:48:09 by nsierra-          #+#    #+#             */
-/*   Updated: 2015/09/21 11:20:02 by nsierra-         ###   ########.fr       */
+/*   Updated: 2015/09/21 11:44:06 by nsierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+# define FT_WHITESPACE " \t\n\v\f\r"
 # include <stddef.h>
 
 typedef struct		s_vector
