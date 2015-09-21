@@ -6,14 +6,14 @@
 /*   By: nsierra- <nsierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 23:21:21 by nsierra-          #+#    #+#             */
-/*   Updated: 2015/01/04 17:22:50 by nsierra-         ###   ########.fr       */
+/*   Updated: 2015/09/21 12:48:02 by nsierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
 
-static void reverse(char *str, int length)
+static void	reverse(char *str, int length)
 {
 	int		i;
 	int		j;

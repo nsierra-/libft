@@ -6,7 +6,7 @@
 /*   By: nsierra- <nsierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 23:28:16 by nsierra-          #+#    #+#             */
-/*   Updated: 2015/04/12 10:18:52 by nsierra-         ###   ########.fr       */
+/*   Updated: 2015/09/21 12:48:37 by nsierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void		ft_putnbr(int n)
 {
 	char	*str;
+
 	str = ft_itoa(n);
 	ft_putstr(str);
 	free(str);
