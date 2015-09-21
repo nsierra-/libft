@@ -6,7 +6,7 @@
 /*   By: nsierra- <nsierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 21:48:09 by nsierra-          #+#    #+#             */
-/*   Updated: 2015/09/21 12:16:24 by nsierra-         ###   ########.fr       */
+/*   Updated: 2015/09/21 12:22:24 by nsierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct		s_list
 }					t_list;
 
 
-void				ft_free(void **ptr);
 void				close_and_die(int fd, const char *msg, int exit_code);
 void				die(const char *msg, int exit_code);
 int					ft_atoi(const char *nptr);
