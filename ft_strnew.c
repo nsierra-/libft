@@ -12,16 +12,17 @@
 
 #include <stddef.h>
 #include <stdlib.h>
+#include <string.h>
 #include "libft.h"
 
 char	*ft_strnew(size_t size)
 {
 	char	*str_new;
 
-	str_new = malloc(sizeof(str_new) * size + 1);
+	str_new = malloc(sizeof(char) * (size + 1));
 	if (str_new)
 	{
-		ft_bzero(str_new, size);
+		ft_bzero(str_new, size + 1);
 		return (str_new);
 	}
 	else
