@@ -6,12 +6,13 @@
 /*   By: nsierra- <nsierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 21:48:09 by nsierra-          #+#    #+#             */
-/*   Updated: 2015/01/04 17:28:04 by nsierra-         ###   ########.fr       */
+/*   Updated: 2015/09/21 12:22:24 by nsierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+# define FT_WHITESPACE " \t\n\v\f\r"
 # include <stddef.h>
 
 # include "private/gnl.h"
@@ -29,6 +30,9 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+
+void				close_and_die(int fd, const char *msg, int exit_code);
+void				die(const char *msg, int exit_code);
 int					ft_atoi(const char *nptr);
 void				ft_bzero(void *s, size_t n);
 int					ft_isalnum(int c);

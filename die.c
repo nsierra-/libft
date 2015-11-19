@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   die.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsierra- <nsierra-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsierra- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/22 23:28:16 by nsierra-          #+#    #+#             */
-/*   Updated: 2015/09/21 12:48:37 by nsierra-         ###   ########.fr       */
+/*   Created: 2015/09/21 12:49:08 by nsierra-          #+#    #+#             */
+/*   Updated: 2015/09/21 12:49:09 by nsierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <unistd.h>
 #include <stdlib.h>
+#include "libft.h"
 
-void		ft_putnbr(int n)
+void		die(const char *msg, int exit_code)
 {
-	char	*str;
-
-	str = ft_itoa(n);
-	ft_putstr(str);
-	free(str);
+	write(STDERR_FILENO, msg, ft_strlen(msg));
+	exit(exit_code);
 }

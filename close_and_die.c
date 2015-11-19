@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   close_and_die.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nsierra- <nsierra-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsierra- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/11/22 23:28:16 by nsierra-          #+#    #+#             */
-/*   Updated: 2015/09/21 12:48:37 by nsierra-         ###   ########.fr       */
+/*   Created: 2015/09/21 12:47:38 by nsierra-          #+#    #+#             */
+/*   Updated: 2015/09/21 12:47:39 by nsierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "libft.h"
-#include <stdlib.h>
 
-void		ft_putnbr(int n)
+void		close_and_die(int fd, const char *msg, int exit_code)
 {
-	char	*str;
-
-	str = ft_itoa(n);
-	ft_putstr(str);
-	free(str);
+	close(fd);
+	die(msg, exit_code);
 }
