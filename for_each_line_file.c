@@ -1,4 +1,5 @@
 #include <fcntl.h>
+#include <stdlib.h>
 #include "private/gnl.h"
 
 int			for_each_line_file(
@@ -17,9 +18,11 @@ int			for_each_line_file(
 	{
 		if ((user_ret = f(line, param)) != 0)
 		{
+			free(line);
 			close(fd);
 			return (user_ret);
 		}
+		free(line);
 	}
 	close(fd);
 	return (0);
