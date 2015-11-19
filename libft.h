@@ -14,6 +14,8 @@
 # define LIBFT_H
 # include <stddef.h>
 
+# include "private/gnl.h"
+
 typedef struct		s_vector
 {
 	size_t			x;
@@ -92,5 +94,11 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstpush(t_list **alst, t_list *new);
 
 void				ft_free_tab(char **tab);
+
+int					for_each_line_file(
+						const char *file_path,
+						int (*f)(const char *, void *),
+						int oflag,
+						void *param);
 
 #endif
