@@ -3,120 +3,75 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfleming <tfleming@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nsierra- <nsierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/11 13:20:06 by tfleming          #+#    #+#             */
-/*   Updated: 2015/01/15 20:20:10 by tfleming         ###   ########.fr       */
+/*   Created: 2015/01/21 10:02:23 by nsierra-          #+#    #+#             */
+/*   Updated: 2015/01/26 09:42:02 by nsierra-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "private/gnl.h"
+#include <stdlib.h>
+#include <unistd.h>
 #include <stdio.h>
+#include "libft.h"
+#include "private/gnl.h"
 
-/*
-** for deal_with_returns, the code was too atrocious with all the
-** (*stock)s, so I just pass it and also the pointer to it.
-*/
-
-/*
-** increase_spill_size:
-** increases the size of spill by at least BUF_SIZE
-** returns non-zero if error
-*/
-
-/*
-** for better performance, replace read line with:
-** read(fd, stocks[fd]->spill + stocks[fd]->lu
-** , stocks[fd]->length - stocks[fd]->lu);
-*/
-
-static int		end_of_line(t_stock *stock)
+static void				push_buf(char **remaining, char *buf)
 {
-	while (stock->lu > stock->line_end - stock->spill
-			&& *(stock->line_end) != '\n')
-		stock->line_end++;
-	if (*(stock->line_end) == '\n')
-		return (stock->lu > stock->line_end - stock->spill);
-	return (0);
+	char				*tmp;
+
+	tmp = *remaining;
+	*remaining = ft_strjoin(*remaining, buf);
+	free(tmp);
 }
 
-static int		increase_spill_size(t_stock *stock)
+static void				load_line(char **line, char **remaining, char *found)
 {
-	char		*new_spill;
-	long		new_size;
+	char				*tmp;
 
-	new_size = stock->length * SPILL_MULT;
-	if (new_size < stock->length + BUF_SIZE)
-		new_size += BUF_SIZE;
-	new_spill = malloc((new_size + 1) * sizeof(char));
-	if (!new_spill)
-		return (1);
-	ft_strcpy(new_spill, stock->spill);
-	new_spill[new_size] = '\0';
-	stock->line_end = new_spill + (stock->line_end - stock->spill);
-	free(stock->spill);
-	stock->spill = new_spill;
-	stock->length = new_size;
-	return (0);
-}
-
-static int		setup(t_stock **stock)
-{
-	*stock = malloc(sizeof(t_stock));
-	if (!*stock)
-		return (1);
-	(*stock)->length = BUF_SIZE;
-	(*stock)->spill = malloc(((*stock)->length + 1) * sizeof(char));
-	if (!(*stock)->spill)
-		return (1);
-	(*stock)->spill[(*stock)->length] = '\0';
-	(*stock)->lu = 0;
-	(*stock)->line_end = (*stock)->spill;
-	(*stock)->read_ret = 1;
-	return (0);
-}
-
-static int		deal_with_returns(t_stock **pointer_to_stock
-									, t_stock *stock, char **line)
-{
-	if (stock->read_ret < 0)
-		return (-1);
-	*line = ft_strsub(stock->spill, 0, stock->line_end - stock->spill);
-	if ((stock->read_ret <= 0 || stock->lu <= 0))
+	*line = ft_strdup(*remaining);
+	if (found)
 	{
-		if (stock->spill)
-			free(stock->spill);
-		free(stock);
-		*pointer_to_stock = NULL;
-		return (0);
+		tmp = *remaining;
+		*remaining = ft_strdup(found + 1);
+		free(tmp);
 	}
-	stock->lu += stock->spill - stock->line_end
-		- (stock->read_ret > 0
-			&& *(stock->line_end) == '\n'
-			&& stock->lu != stock->line_end - stock->spill);
-	ft_memcpy(stock->spill, stock->line_end + 1, stock->lu);
-	stock->line_end = stock->spill;
-	return (1);
+	else
+		*remaining = NULL;
 }
 
-int				get_next_line(int const fd, char **line)
+static int				find_newline(char **line, char **remaining)
 {
-	static t_stock	*stocks[MAX_FD];
+	char				*found;
 
-	if (fd >= MAX_FD || fd < 0 || line == NULL)
-		return (-1);
-	if (stocks[fd] && stocks[fd]->read_ret == 0)
-		return (0);
-	if (!stocks[fd] && setup(&stocks[fd]))
-		return (-1);
-	while (stocks[fd]->read_ret > 0 && !((end_of_line(stocks[fd]))))
+	if (*remaining && (found = ft_strchr(*remaining, '\n')))
 	{
-		while (stocks[fd]->lu + BUF_SIZE > stocks[fd]->length)
-			if (increase_spill_size(stocks[fd]))
-				return (-1);
-		stocks[fd]->read_ret = read(fd, stocks[fd]->spill + stocks[fd]->lu
-									, BUF_SIZE);
-		stocks[fd]->lu += stocks[fd]->read_ret;
+		*found = '\0';
+		load_line(line, remaining, found);
+		return (1);
 	}
-	return (deal_with_returns(&stocks[fd], stocks[fd], line));
+	return (0);
+}
+
+int						get_next_line(int const fd, char **line)
+{
+	static char			*remaining = NULL;
+	char				buf[BUFF_SIZE + 1];
+	int					read_status;
+
+	if (fd < 1 || !line)
+		return (-1);
+	ft_bzero(buf, BUFF_SIZE + 1);
+	if (find_newline(line, &remaining))
+		return (1);
+	else if ((read_status = read(fd, buf, BUFF_SIZE)) <= 0)
+	{
+		if (ft_strlen(remaining) > 0)
+			load_line(line, &remaining, NULL);
+		return (read_status);
+	}
+	else if (!remaining)
+		remaining = ft_strnew(0);
+	push_buf(&remaining, buf);
+	return (get_next_line(fd, line));
 }
