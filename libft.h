@@ -6,7 +6,7 @@
 /*   By: nsierra- <nsierra-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/22 21:48:09 by nsierra-          #+#    #+#             */
-/*   Updated: 2015/11/19 02:23:21 by                  ###   ########.fr       */
+/*   Updated: 2015/11/19 02:49:53 by                  ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_lstpush(t_list **alst, t_list *new);
 
+size_t				ft_tab_size(const char **tab);
 void				ft_free_tab(char **tab);
 
 int					for_each_line_file(
